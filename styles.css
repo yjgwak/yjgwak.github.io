@@ -1,0 +1,67 @@
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  /* font-family: Arial, sans-serif; */
+}
+
+.container {
+  padding: 0 30px;
+}
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  height: 50px;
+  margin: 0 auto;
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+.icons {
+  display: flex;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 80%;
+  box-sizing: border-box; /* include padding and border in the element's total width and height */
+  padding: 5% 10%; /* or whatever value you want */
+}
+
+.header a {
+  color: #333;
+  text-decoration: none;
+}
+.header img {
+  height: 20px;
+  width: 20px;
+}
+.sidebar {
+  padding: 10% 0 0 0;
+  width: 20%;
+  float: right;
+  text-align: center;
+}
+.sidebar img {
+  height: 100px;
+  width: 100px;
+}
+
+.profile-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
+h2 {
+  font-size: 1.5em; /* desktop font size */
+}
+
+@media (max-width: 600px) {
+  h2 {
+    font-size: 1.2em; /* mobile font size */
+  }
+}

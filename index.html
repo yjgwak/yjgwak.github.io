@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <a href="#arxiv_today">Arxiv RL Today</a>
+        <a href="#cv">CV</a>
+        <a href="#research">Research</a>
+        <div class="icons">
+          <a
+            href="https://linkedin.com/in/yeongjin-gwak-99b7ab115"
+            target="_blank"
+          >
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
+              alt="LinkedIn"
+            />
+          </a>
+          <a href="https://github.com/yjgwak" target="_blank">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              alt="Github"
+            />
+          </a>
+        </div>
+      </div>
+      <div class="sidebar">
+        <img
+          src="https://media.licdn.com/dms/image/C5103AQFO9DO8zQwFGQ/profile-displayphoto-shrink_400_400/0/1517436705114?e=1692230400&v=beta&t=3hSA2H2dWdeT2mlkprfdodUSYMGSkMUwFH4iHbi9JCA"
+          class="profile-image"
+          alt="Yeongjin Gwak"
+        />
+        <div>
+          Yeongjin Gwak
+        </div>
+        <p>
+          ML researcher strongly believing RL as robust solution for
+          extensive problems
+        </p>
+      </div>
+
+      <div class="content">
+        <div id="arxiv_today" style="display: none">
+          {% for post in site.arxiv_today %}
+          <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+          {{ post.content }} {% endfor %}
+        </div>
+        <div id="cv">
+          <h2>Work</h2>
+          <ul>
+            <li>
+              <h3>acrossB</h3>
+              <div class="period">2022. 9 - Present</div>
+              <ul>
+                <li>
+                  Developing machine learning system (model, infra, etc) for
+                  business products on global logistics platform
+                </li>
+                <li>
+                  Research on forecasting stochastic future retail sales
+                  considering promotion, new release, and cannibalization
+                </li>
+                <li>Develop a design pattern widely usable on ML/DL</li>
+                <li>
+                  Develop a cloud-based system for model serving and monitoring
+                </li>
+              </ul>
+            </li>
+            <li>
+              <h3>Korea Trade Network</h3>
+              <div class="period">2020. 5 - 2022. 9</div>
+              <ul>
+                <li>
+                  Decentralized identity (DID) prototyping using the Kubernetes
+                  cluster
+                </li>
+                <li>
+                  Developed connection between cloud public certificate service
+                  and vanilla JS-based browser certificate service
+                </li>
+              </ul>
+            </li>
+            <!-- Add more jobs as list items here -->
+          </ul>
+          <h2>Education</h2>
+          <ul>
+            <li>
+              <h3>M.S. in Physics</h3>
+              <div class="period">
+                Seoul National University, Seoul, Korea (2015. 3 - 2020. 8)
+              </div>
+              <ul>
+                <li>
+                  Researched on computational approaches to calculate ultra cold
+                  quantum states advised by <a
+                    href="https://scholar.google.de/citations?user=9YVWK6wAAAAJ&hl=de"
+                    >Uwe R. Fischer</a
+                  >
+                </li>
+                <li>
+                  Drop out of doctoral program and graduate with a master's
+                  degree
+                </li>
+              </ul>
+              Thesis: 
+              <a href="https://arxiv.org/abs/1811.04705">
+                Benchmarking the multiconfigurational Hartree method by
+                the exact wavefunction of two harmonically trapped bosons with
+                contact interaction
+              </a>
+                
+            </li>
+            <li>
+              <h3>B.S. in Physics</h3>
+              <div class="period">
+                Korean Advanced Institute of Science and Technology, Daejeon,
+                Korea (2011. 2 - 2015. 2)
+              </div>
+              <ul>
+                <li>
+                  Study on the dynamics and properties of academic citation
+                  network advised by <a href=https://scholar.google.com/citations?user=-Jhj6swAAAAJ&hl=en">Hawoong Jeong</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          <h2>Projects</h2>
+          <ul>
+            <li>2019 - 2020. Forecasting stock price using A2C algorithm</li>
+            <li>2021 - 2022. Developing backbone model on computer vision</li>
+            <li>2022 - 2023. Developing deep learning model for time series forecasting on sales problems</li>
+            <li>2023 - Present. Investigating on recent development on reinforcement learning</li>
+          </ul>
+          <h2>Competition</h2>
+          <ul>
+            <li>2017. 2nd place, Korea Super-Computing Challenge</li>
+              <ul>
+                <li>
+                  Competition to refactor existing code on the various engineering tasks into parallel format using OpenMPI to improve performance 
+                </li>
+              </ul>
+          </ul>
+
+          <h2>Publications</h2>
+          <li>
+            <a href="https://www.sciencedirect.com/science/article/abs/pii/S0003491621001986">
+              Gwak, Yeongjin, Oleksandr V. Marchukov, and Uwe R. Fischer.
+              "Benchmarking the multiconfigurational Hartree method by the exact
+              wavefunction of two harmonically trapped bosons with contact
+              interaction." Annals of Physics 434 (2021): 168592
+            </a>
+          </li>
+        </div>
+        <div id="research" style="display: none">TBD</div>
+      </div>
+    </div>
+    <script src="scripts.js"></script>
+  </body>
+</html>
