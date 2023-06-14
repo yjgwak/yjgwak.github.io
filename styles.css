@@ -65,3 +65,12 @@ h2 {
     font-size: 1.2em; /* mobile font size */
   }
 }
+
+.email {
+  height: 1em;
+}
+
+li {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}

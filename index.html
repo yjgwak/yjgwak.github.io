@@ -1,6 +1,5 @@
 ---
 layout: page
-title: yjgwak.github.io
 ---
 <!DOCTYPE html>
 <html>
@@ -41,7 +40,7 @@ title: yjgwak.github.io
           class="profile-image"
           alt="Yeongjin Gwak"
         />
-        <div>
+        <div class="profile-name">
           Yeongjin Gwak
         </div>
         <p>
@@ -54,7 +53,7 @@ title: yjgwak.github.io
         <!-- <div id="arxiv_today" style="display: none"> -->
         <div id="arxiv_today">
           <h2>
-            I made GPT-4 service to generates a daily compilation of recent, notable papers from arXiv 😉
+            I made GPT-4 service to generates a daily compilation of recent, notable papers from <a href="https://arxiv.org/list/cs.LG/pastweek">arXiv</a> 😉
           </h2>
           {% assign sorted_arxiv = site.arxiv_today | sort: 'date' | reverse %}
           {% for post in sorted_arxiv %}
@@ -65,6 +64,9 @@ title: yjgwak.github.io
           {% endfor %}
         </div>
         <div id="cv" style="display: none">
+          <!-- <a href="cv.pdf" download>
+            <img src="https://cdn-icons-png.flaticon.com/512/731/731985.png" alt="Download CV as PDF"/>
+          </a> -->
           <h2>Work</h2>
           <ul>
             <li>
