@@ -1,1 +1,5 @@
-theme: jekyll-theme-midnight
+theme: jekyll-theme-minimal
+collections:
+  arxiv_today:
+    output: true
+    permalink: /:collection/:path/

@@ -1,3 +1,7 @@
+---
+layout: page
+title: yjgwak.github.io
+---
 <!DOCTYPE html>
 <html>
   <head>
@@ -47,12 +51,20 @@
       </div>
 
       <div class="content">
-        <div id="arxiv_today" style="display: none">
-          {% for post in site.arxiv_today %}
-          <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-          {{ post.content }} {% endfor %}
+        <!-- <div id="arxiv_today" style="display: none"> -->
+        <div id="arxiv_today">
+          <h2>
+            I made GPT-4 service to generates a daily compilation of recent, notable papers from arXiv 😉
+          </h2>
+          {% assign sorted_arxiv = site.arxiv_today | sort: 'date' | reverse %}
+          {% for post in sorted_arxiv %}
+            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+            {% if forloop.first %}
+              {{ post.content }}
+            {% endif %}
+          {% endfor %}
         </div>
-        <div id="cv">
+        <div id="cv" style="display: none">
           <h2>Work</h2>
           <ul>
             <li>
