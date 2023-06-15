@@ -3,6 +3,10 @@ on:
   schedule:
     - cron: "30 10 * * 1-5"
   workflow_dispatch:
+    inputs:
+      target_date:
+        description: "Target date to parse arXiv papers"
+        required: false
 
 jobs:
   build:
@@ -19,7 +23,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run script
-        run: python update_arxiv_list.py
+        run: python update_arxiv_list.py ${{ github.event.inputs.target_date }}
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Commit and push

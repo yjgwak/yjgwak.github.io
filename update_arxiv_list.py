@@ -5,6 +5,7 @@ import re
 import datetime
 import logging
 from time import sleep
+from argparse import ArgumentParser
 
 logging.basicConfig(level=logging.INFO)
 MODEL_NAME = "gpt-4-0613"
@@ -184,7 +185,20 @@ date: {date_str}
 
 
 if __name__ == "__main__":
-    target_date = datetime.datetime.today()
+    argparse = ArgumentParser()
+    argparse.add_argument(
+        "target_date",
+        metavar="arg",
+        type=str,
+        default=None,
+        help="Target date to scrape arxiv papers",
+    )
+    args = argparse.parse_args()
+    if args.target_date:
+        target_date = datetime.datetime.strptime(args.target_date, "%Y-%m-%d")
+    else:
+        target_date = datetime.datetime.today()
+
     logging.info(f"Target date: {target_date}")
     papers = scrape_arxiv_papers(target_date)
     logging.info(f"Number of papers: {len(papers)}")
@@ -218,6 +232,7 @@ Given papers:
         for k, v in papers_dict.items()
         if k in paper_abstract_map.keys()
     }
+    logging.info(f"Filtered papers: {filtered_papers_dict}")
     base_prompt = """Following is the paper published in the arXiv on machine learning.
 You extract the list of possible influential papers on reinforcement learning.
 Using abstracts and authorities of the authors, list at most 5 papers decreasingly ordered by potential influence
@@ -240,9 +255,12 @@ Given papers:
         papers_dict=filtered_papers_dict,
         base_prompt=base_prompt,
         separator="\n\n",
-        max_size=10,
+        max_size=15,
     )
     logging.info(f"Generated text: {response}")
-    papers_lst = [x.strip() for x in response.split("\n\n") if x.strip() != ""]
+    papers_lst = [
+        x.strip()
+        for x in ("\n".join(y.strip() for y in response.split("\n"))).split("\n\n")
+    ]
     write_compilations_markdown(papers_lst, target_date)
     logging.info("Done")
