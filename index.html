@@ -55,6 +55,7 @@ layout: page
           <h2>
             I made GPT-4 service to generates a daily compilation of recent, notable papers from <a href="https://arxiv.org/list/cs.LG/pastweek">arXiv</a> 😉
           </h2>
+          <p>Number before title corresponds to importance score</p>
           {% assign sorted_arxiv = site.arxiv_today | sort: 'date' | reverse %}
           {% for post in sorted_arxiv %}
             <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
