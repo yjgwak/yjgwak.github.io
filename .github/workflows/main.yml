@@ -24,7 +24,7 @@ jobs:
           pip install -r requirements.txt
       - name: Run script
         run: |
-          if [ -n "${{ github.event.inputs.target_date }}" ]; then
+          if [ -z "${{ github.event.inputs.target_date }}" ]; then
             python update_arxiv_list.py --target_date=${{ github.event.inputs.target_date }}
           else
             python update_arxiv_list.py
