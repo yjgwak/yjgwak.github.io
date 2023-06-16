@@ -1,3 +1,4 @@
+import os
 import requests
 from bs4 import BeautifulSoup
 import openai
@@ -184,6 +185,12 @@ date: {date_str}
         f.write(md_content)
 
 
+def is_done_already(date):
+    date_str = date.strftime("%Y-%m-%d")
+    filepath = f"_arxiv_today/{date_str}.md"
+    return os.path.isfile(filepath)
+
+
 if __name__ == "__main__":
     argparse = ArgumentParser()
     argparse.add_argument(
@@ -194,11 +201,13 @@ if __name__ == "__main__":
         help="Target date to scrape arxiv papers",
     )
     args = argparse.parse_args()
-    if args.target_date:
-        target_date = datetime.datetime.strptime(args.target_date, "%Y-%m-%d")
-    else:
+    if args.target_date == "today":
         target_date = datetime.datetime.today()
-
+    else:
+        target_date = datetime.datetime.strptime(args.target_date, "%Y-%m-%d")
+    if is_done_already(target_date):
+        logging.info(f"Already done for {target_date}")
+        exit()
     logging.info(f"Target date: {target_date}")
     papers = scrape_arxiv_papers(target_date)
     logging.info(f"Number of papers: {len(papers)}")
