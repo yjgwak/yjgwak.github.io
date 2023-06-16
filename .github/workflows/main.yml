@@ -7,7 +7,6 @@ on:
       target_date:
         description: "Target date %y-%m-%d"
         required: false
-        default: "today"
 
 jobs:
   build:
@@ -24,7 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run script
-        run: python update_arxiv_list.py ${{ github.event.inputs.target_date }}
+        run: |
+          if [ -n "${{ github.event.inputs.target_date }}" ]; then
+            python update_arxiv_list.py --target_date=${{ github.event.inputs.target_date }}
+          else
+            python update_arxiv_list.py
+          fi
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Commit and push

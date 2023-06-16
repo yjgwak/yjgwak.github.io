@@ -194,17 +194,18 @@ def is_done_already(date):
 if __name__ == "__main__":
     argparse = ArgumentParser()
     argparse.add_argument(
-        "target_date",
-        metavar="arg",
+        "--target_date",
         type=str,
+        required=False,
         default=None,
         help="Target date to scrape arxiv papers",
     )
     args = argparse.parse_args()
-    if args.target_date == "today":
-        target_date = datetime.datetime.today()
-    else:
+    if args.target_date is None:
         target_date = datetime.datetime.strptime(args.target_date, "%Y-%m-%d")
+    else:
+        target_date = datetime.datetime.today()
+        
     if is_done_already(target_date):
         logging.info(f"Already done for {target_date}")
         exit()
