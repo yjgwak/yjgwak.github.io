@@ -3,3 +3,6 @@ collections:
   arxiv_today:
     output: true
     permalink: /:collection/:path/
+  static:
+    output: true
+    permalink: /:collection/:path/
