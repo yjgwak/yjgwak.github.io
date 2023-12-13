@@ -1,3 +1,4 @@
+import json
 import os
 import requests
 from bs4 import BeautifulSoup
@@ -7,12 +8,36 @@ import datetime
 import logging
 from time import sleep
 from argparse import ArgumentParser
+import google.cloud.storage as gcs
+
 
 logging.basicConfig(level=logging.INFO)
 MODEL_NAME = "gpt-4-1106-preview"
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
 }
+GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
+
+
+def save_to_gcp(system_prompt, user_prompt, response_content):
+    """Save prompts and response to Google Cloud Storage"""
+    try:
+        client = gcs.Client(project=GCP_PROJECT_ID)
+        bucket = client.bucket("llm-prompt")
+        timestamp = datetime.datetime.now().strftime("%Y/%m/%d/%H-%M-%S-%f")
+        blob = bucket.blob(f"github.io/prompts/{timestamp}.json")
+
+        data = {
+            "system_prompt": system_prompt,
+            "user_prompt": user_prompt,
+            "response_content": response_content,
+        }
+
+        blob.upload_from_string(json.dumps(data))
+        logging.info(f"Data successfully uploaded to GCS with timestamp: {timestamp}")
+
+    except Exception as e:
+        logging.error(f"Error occurred while uploading to GCS: {e}")
 
 
 def get_response_from_prompt(model_name, prompt, system_prompt):
@@ -29,8 +54,10 @@ def get_response_from_prompt(model_name, prompt, system_prompt):
         model=model_name,
         messages=messages,
     )
+    response_content = response["choices"][0]["message"]["content"]
+    save_to_gcp(system_prompt, prompt, response_content)
 
-    return response["choices"][0]["message"]["content"]
+    return response_content
 
 
 def extract_arxiv_id_from_tags(dt, dd):
@@ -205,7 +232,7 @@ if __name__ == "__main__":
         target_date = datetime.datetime.strptime(args.target_date, "%Y-%m-%d")
     else:
         target_date = datetime.datetime.today()
-        
+
     if is_done_already(target_date):
         logging.info(f"Already done for {target_date}")
         exit()
